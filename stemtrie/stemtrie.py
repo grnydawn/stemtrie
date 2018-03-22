@@ -9,11 +9,20 @@ from pygtrie import StringTrie, _Node
 
 class StemTrie(StringTrie):
 
-    @property
-    def subtrie(self, node=None):
+    def get_children(self, node=None):
         node = node if node and isinstance(node, _Node) else self._root
         for k in node.children:
             t = self.__class__()
             t._root = self._root.children[k]
             t._sorted = self._sorted
             yield k, t
+
+    def get_child(self, name, node=None):
+        node = node if node and isinstance(node, _Node) else self._root
+        for k in node.children:
+            if k == name:
+                t = self.__class__()
+                t._root = self._root.children[k]
+                t._sorted = self._sorted
+                return t
+        raise Exception("%s is not a child"%name)

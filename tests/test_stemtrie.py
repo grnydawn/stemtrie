@@ -57,3 +57,11 @@ def test_del(trie):
     """Sample pytest test function with the pytest fixture as an argument."""
     del trie['a':]
     assert not trie.keys()
+
+def test_children(trie):
+    for name, child in trie.get_children():
+        assert name == "a"
+        assert isinstance(child, StemTrie)
+
+def test_child(trie):
+    assert isinstance(trie.get_child("a"), StemTrie)
