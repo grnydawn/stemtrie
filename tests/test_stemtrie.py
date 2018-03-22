@@ -59,12 +59,12 @@ def test_del(trie):
     assert not trie.keys()
 
 def test_children(trie):
-    for name, value, subtrie in trie.get_children():
+    for name, value, subtrie in trie.get_children(with_value=True):
         assert name == "a"
         assert value == None
         assert isinstance(subtrie, StemTrie)
 
 def test_child(trie):
-    value, subtrie = trie.get_child("a")
+    value, subtrie = trie.get_child("a", with_value=True)
     assert value == None
     assert isinstance(subtrie, StemTrie)
